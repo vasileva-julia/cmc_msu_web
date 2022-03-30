@@ -1,12 +1,9 @@
 package Main;
 
 import models.*;
-import org.springframework.boot.SpringApplication;
-
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import util.DAOFactory;
-
-import java.sql.SQLException;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Main {
@@ -27,6 +24,9 @@ public class Main {
         t.setId(2L);
         DAOFactory.getInstance().getTeacherDAO().add(t);
         DAOFactory.getInstance().getTeacherDAO().delete(t);
+        Company old = DAOFactory.getInstance().getCompanyDAO().getByID(2L);
+        t.setCompany(old);
+        DAOFactory.getInstance().getTeacherDAO().add(t);
         System.out.println("we finished!");
     }
 }
