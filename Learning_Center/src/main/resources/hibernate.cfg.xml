@@ -10,6 +10,7 @@
         <property name="connection.username">postgres</property>
         <property name="connection.password"/>
         <property name="show_sql">true</property>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
 
         <mapping class="models.Company" />
         <mapping class="models.Course" />

@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "student")
-public class Student {
+public class Student implements GenericModel<Long> {
 
     public Student() {}
 

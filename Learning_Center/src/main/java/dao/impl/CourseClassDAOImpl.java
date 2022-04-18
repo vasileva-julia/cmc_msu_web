@@ -5,60 +5,37 @@ import models.Course;
 import models.CourseClass;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import util.HibernateSessionFactoryUtil;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import java.util.List;
 
 
-public class CourseClassDAOImpl implements CourseClassDAO {
+public class CourseClassDAOImpl extends GenericDAOImpl<CourseClass, Long> implements CourseClassDAO {
 
-    @Override
-    public void add(CourseClass courseClass) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(courseClass);
-        session.getTransaction().commit();
-        session.close();
+    public CourseClassDAOImpl(){
+        super(CourseClass.class);
     }
 
-    @Override
-    public void update(CourseClass courseClass) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+    public List<CourseClass> getByCourseName(String name) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.update(courseClass);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    @Override
-    public void delete(CourseClass courseClass) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(courseClass);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    @Override
-    public CourseClass getByID(Long id) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query<CourseClass> query = session.createQuery("from CourseClass where id = :id_param", CourseClass.class);
-        query.setParameter("id_param", id);
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<CourseClass> cq = cb.createQuery(CourseClass.class);
+        Metamodel m = session.getMetamodel();
+        EntityType<CourseClass> CourseClass_ = m.entity(CourseClass.class);
+        Root<CourseClass> courseClass = cq.from(CourseClass_);
+        Join<CourseClass, Course> course = courseClass.join("course");
+        cq.select(courseClass).where(cb.like(course.get("name"), name));
+        Query<CourseClass> query = session.createQuery(cq);
         List<CourseClass> result = query.getResultList();
         session.getTransaction().commit();
         session.close();
-        if (result.size() == 0)
-            return null;
-        return (CourseClass) result.get(0);
-    }
-
-    @Override
-    public List<CourseClass> getByCourse(Course course) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query<CourseClass> query = session.createQuery("from CourseClass where course = :course_param", CourseClass.class);
-        query.setParameter("course_param", course);
-        return query.getResultList();
+        return result;
     }
 
 }

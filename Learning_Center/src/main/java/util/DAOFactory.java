@@ -2,8 +2,6 @@ package util;
 
 import dao.*;
 import dao.impl.*;
-import models.Company;
-import models.Teacher;
 
 public class DAOFactory {
 

@@ -22,16 +22,16 @@ create table company (
 create table course (
     course_id serial primary key,
     name varchar(250) not null ,
-    duration interval not null ,
-    intensity interval not null
+    duration numeric(5, 1) ,
+    intensity numeric(5, 1)
 );
 
 create table class (
     class_id serial primary key,
     course_id integer references course(course_id),
     theme varchar not null ,
-    start_time interval not null ,
-    end_time interval not null
+    start_time numeric(5, 1) ,
+    end_time numeric(5, 1)
 );
 
 create table teacher (

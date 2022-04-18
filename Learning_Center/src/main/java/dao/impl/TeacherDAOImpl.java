@@ -5,59 +5,35 @@ import models.Course;
 import models.Teacher;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import util.HibernateSessionFactoryUtil;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
 import java.util.List;
 
 
-public class TeacherDAOImpl implements TeacherDAO {
+public class TeacherDAOImpl extends GenericDAOImpl<Teacher, Long> implements TeacherDAO {
 
-    @Override
-    public void add(Teacher teacher) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(teacher);
-        session.getTransaction().commit();
-        session.close();
+    public TeacherDAOImpl(){
+        super(Teacher.class);
     }
 
     @Override
-    public void update(Teacher teacher) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+    public List<Teacher> getByCourseName(String name) {
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.update(teacher);
-        session.getTransaction().commit();
-        session.close();
-    }
 
-    @Override
-    public void delete(Teacher teacher) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(teacher);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-    @Override
-    public Teacher getByID(Long id) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query<Teacher> query = session.createQuery("from Teacher where id = :id_param", Teacher.class);
-        query.setParameter("id_param", id);
-        List<Teacher> result = query.getResultList();
-        session.getTransaction().commit();
-        session.close();
-        if (result.size() == 0)
-            return null;
-        return (Teacher) result.get(0);
-    }
-
-    @Override
-    public List<Teacher> getByCourse(Course course) {
-        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query<Teacher> query = session.createQuery("from Teacher where :course_param in courses", Teacher.class);
-        query.setParameter("course_param", course);
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Teacher> cq = cb.createQuery(Teacher.class);
+        Metamodel m = session.getMetamodel();
+        EntityType<Teacher> Teacher_ = m.entity(Teacher.class);
+        Root<Teacher> teacher = cq.from(Teacher_);
+        Join<Teacher, Course> course = teacher.join("courses");
+        cq.select(teacher).where(cb.like(course.get("name"), name));
+        Query<Teacher> query = session.createQuery(cq);
         List<Teacher> result = query.getResultList();
         session.getTransaction().commit();
         session.close();

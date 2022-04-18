@@ -24,7 +24,7 @@ public class Main {
         t.setId(2L);
         DAOFactory.getInstance().getTeacherDAO().add(t);
         DAOFactory.getInstance().getTeacherDAO().delete(t);
-        Company old = DAOFactory.getInstance().getCompanyDAO().getByID(2L);
+        Company old = DAOFactory.getInstance().getCompanyDAO().getById(2L);
         t.setCompany(old);
         DAOFactory.getInstance().getTeacherDAO().add(t);
         System.out.println("we finished!");
