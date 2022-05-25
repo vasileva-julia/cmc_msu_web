@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>errorPage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css"
+          integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .sticky {
+            position: sticky;
+            top: 0em;
+            min-height: 0em;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="general :: page-header"></div>
+
+<blockquote class="blockquote text-center">
+    <h1 class="display-1">Error</h1>
+    <h1 class="display-2"> <span th:text="${error}"> </span></h1>
+</blockquote>
+
+</body>
+</html>

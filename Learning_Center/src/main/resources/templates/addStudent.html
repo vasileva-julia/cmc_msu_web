@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>addStudentPage</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css"
+        integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <style>
+    .indent {
+      margin-left: 30px;
+      margin-right: 30px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="indent">
+  <form action="#" th:action="@{/addStudent}" th:object="${student}" method="post">
+    <div>
+      <table>
+        <tr>
+          <td>name</td>
+          <td><input type="text" id="studentName" th:field="*{name}" /></td>
+        </tr>
+        <tr>
+          <td>login</td>
+          <td><input type="text" id="studentLogin" th:field="*{login}" /></td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td><input type="text" id="studentPassword" th:field="*{password}" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="submit" id="submitButton" value="Submit" /></td>
+        </tr>
+      </table>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

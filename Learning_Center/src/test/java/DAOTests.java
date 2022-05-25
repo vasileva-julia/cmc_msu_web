@@ -1,11 +1,11 @@
-import dao.*;
-import models.*;
+import app.dao.*;
+import app.models.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
-import util.DAOFactory;
-import util.HibernateSessionFactoryUtil;
+import app.util.DAOFactory;
+import app.util.HibernateSessionFactoryUtil;
 
 import java.math.BigDecimal;
 import java.util.*;
