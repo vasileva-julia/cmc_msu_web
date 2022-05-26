@@ -16,26 +16,37 @@
 <body>
 
 <div class="indent">
-    <form action="#" th:action="@{/addTeacher}" th:object="${teacher}" method="post">
+    <form action="#" method="post" th:action="@{/addTeacher}">
         <div>
             <table>
                 <tr>
                     <td>name</td>
-                    <td><input type="text" th:field="*{name}" /></td>
+                    <td><input type="text" id="teacherName" th:object="${teacher}" th:field="*{name}" /></td>
                 </tr>
                 <tr>
                     <td>login</td>
-                    <td><input type="text" th:field="*{login}" /></td>
+                    <td><input type="text" id="teacherLogin" th:object="${teacher}" th:field="*{login}" /></td>
                 </tr>
                 <tr>
                     <td>password</td>
-                    <td><input type="text" th:field="*{password}" /></td>
+                    <td><input type="text" id="teacherPassword" th:object="${teacher}" th:field="*{password}" /></td>
+                </tr>
+                <tr>
+                    <td>company (id)</td>
+                    <td><input type="text" id="companyId" th:object="${company}" th:field="*{id}" /></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><input type="submit" value="Submit" /></td>
+                    <td><input type="submit" id="submitButton" value="Submit" /></td>
                 </tr>
             </table>
+<!--            <form method="post" th:action="@{/addTeacher}">-->
+<!--                <input type="text" th:value="${teacher.name}" name="name"/>-->
+<!--                <input type="text" th:value="${teacher.login}" name="login"/>-->
+<!--                <input type="text" th:value="${teacher.password}" name="password"/>-->
+<!--                <input type="text" th:object="${company}" th:field="*{id}" name="company id"/>-->
+<!--                <button type="submit">Submit</button>-->
+<!--            </form>-->
         </div>
     </form>
 </div>

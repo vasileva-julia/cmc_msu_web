@@ -17,13 +17,29 @@
 
 <div th:replace="general :: page-header"></div>
 
+<!--<div class="indent">-->
+<!--    <form method="get" action="/addCourse">-->
+<!--        <button id="addCourseButton" type="submit" class="btn btn-success">Добавить</button>-->
+<!--    </form>-->
+<!--</div>-->
+
 <div class="indent">
-    <form method="get" action="/addCourse">
-        <button id="addCourseButton" type="submit" class="btn btn-success">Добавить</button>
+<!--    <form th:action="@{/addCourse}" th:object="${course}" method="post">-->
+<!--        <input type="text" id="newCourseName" th:field="*{name}" />-->
+<!--        <input type="submit" id="submitButton" value="Submit" />-->
+<!--    </form>-->
+    <form method="post" action="/addCourse">
+        <input type="text" id="newCourseName" th:object="${new_course}" th:field="*{name}" />
+<!--        <input type="text" id="newCourseName" th:object="${course}" th:field="*{id}"/>-->
+        <button id="addCourseButton" type="submit" class="btn btn-success">Добавить курс</button>
     </form>
 </div>
 
-<table class="table">
+
+
+
+
+<table class="table" id="coursesList">
     <thead>
     <tr>
         <th scope="col">id</th>
@@ -38,7 +54,7 @@
         <td>
             <form method="get" action="/viewCourse">
                 <input type="hidden" name="id" th:value="*{getId()}"/>
-                <button type="submit" class="btn btn-info">На страницу курса</button>
+                <button type="submit" th:id="toView" class="btn btn-info">На страницу курса</button>
             </form>
         </td>
     </tr>

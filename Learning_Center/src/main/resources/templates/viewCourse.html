@@ -46,9 +46,9 @@
             </thead>
             <tbody>
             <tr th:each="class : ${course.getTeachers()}" th:object="${class}">
-                <td th:text="*{getId()}"></td>
-                <td th:text="*{getName()}"></td>
-                <td th:text="*{getCompany().getName()}"></td>
+                <td th:text="*{getId()}" id="teacherId"></td>
+                <td th:text="*{getName()}" id="teacherName"></td>
+                <td th:text="*{getCompany().getName()}" id="companyName"></td>
                 <td>
                     <form method="get" action="/viewTeacher">
                         <input type="hidden" name="id" th:value="*{getId()}"/>
@@ -63,7 +63,7 @@
 
 <div class="indent">
     <div>
-        <h4 th:text="Ученики"></h4>
+        <h4 th:text="Учащиеся"></h4>
         <form method="get" action="/studentToCourse">
             <input type="hidden" name="course_id" th:value="*{course.getId()}"/>
             <button id="addStudentButton" type="submit" class="btn btn-success">Добавить</button>

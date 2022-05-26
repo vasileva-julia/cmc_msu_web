@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>teachersPage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css"
+          integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .indent {
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="general :: page-header"></div>
+
+<!--<div class="indent">-->
+<!--  <form method="post" action="/addTeacher">-->
+<!--    <input type="text" id="newTeacherName" th:object="${new_student}" th:field="*{name}" />-->
+<!--    <input type="text" id="newTeacherLogin" th:object="${new_student}" th:field="*{login}" />-->
+<!--    <input type="text" id="newStudentPassword" th:object="${new_student}" th:field="*{password}" />-->
+<!--    <button id="addCourseButton" type="submit" class="btn btn-success">Добавить студента</button>-->
+<!--  </form>-->
+<!--</div>-->
+
+<table class="table" id="teachersList">
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Логин</th>
+        <th scope="col">Компания</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="teacher : ${teachers}" th:object="${teacher}">
+        <td th:text="*{getId()}"></td>
+        <td th:text="*{getName()}"></td>
+        <td th:text="*{getLogin()}"></td>
+        <td th:text="*{getCompany().getName()}"></td>
+        <td>
+            <form method="get" action="/viewTeacher">
+                <input type="hidden" name="id" th:value="*{getId()}"/>
+                <button type="submit" th:id="toView" class="btn btn-info">Подробнее</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

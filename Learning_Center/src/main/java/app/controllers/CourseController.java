@@ -30,8 +30,15 @@ public class CourseController {
     public String courses(Model model) {
         Collection<Course> courses = courseDAO.getAll();
         model.addAttribute("courses", courses);
+        model.addAttribute("new_course", new Course());
         model.addAttribute("courseDAO", courseDAO);
         return "courses";
+    }
+
+    @PostMapping(value = "/addCourse")
+    public String addCoursePost(@ModelAttribute(name = "new_course") Course course, Model model) {
+        courseDAO.add(course);
+        return "redirect:/courses";
     }
 
     @GetMapping("/viewCourse")

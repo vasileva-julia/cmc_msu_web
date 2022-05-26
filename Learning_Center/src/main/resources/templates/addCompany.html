@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>teacherToCoursePage</title>
+    <title>addCompanyPage</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css"
           integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -16,13 +16,16 @@
 <body>
 
 <div class="indent">
-    <form th:action="@{/teacherToCourse}" th:object="${teacher}" method="post">
-        <input type="hidden" name="course_id" th:value="${course_id}"/>
+    <form action="#" th:action="@{/addCompany}" th:object="${company}" method="post">
         <div>
             <table>
                 <tr>
-                    <td>Teacher ID: </td>
-                    <td><input type="text" id="teacherId" th:field="*{id}" /></td>
+                    <td>name</td>
+                    <td><input type="text" id="studentName" th:field="*{name}" /></td>
+                </tr>
+                <tr>
+                    <td>address</td>
+                    <td><input type="text" id="studentLogin" th:field="*{address}" /></td>
                 </tr>
                 <tr>
                     <td></td>

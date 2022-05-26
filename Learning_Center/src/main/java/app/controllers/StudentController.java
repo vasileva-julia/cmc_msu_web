@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import app.util.DAOFactory;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -18,16 +20,23 @@ public class StudentController {
     private final StudentDAO studentDAO = DAOFactory.getInstance().getStudentDAO();
     private final CourseDAO courseDAO = DAOFactory.getInstance().getCourseDAO();
 
-    @GetMapping("/student")
-    public String studentPage(@RequestParam(name = "id") Long id, Model model) {
+    @GetMapping("/students")
+    public String students(Model model) {
+        Collection<Student> students = studentDAO.getAll();
+        model.addAttribute("students", students);
+        model.addAttribute("new_student", new Student());
+        model.addAttribute("studentDAO", studentDAO);
+        return "students";
+    }
+
+    @GetMapping("/viewStudent")
+    public String viewStudent(@RequestParam(name = "id") Long id, Model model) {
         Student student = studentDAO.getById(id);
-        if (student == null) {
-            model.addAttribute("error_msg", "В базе нет человека с ID = " + id);
-            return "error";
-        }
+        Set<Course> courses = student.getCourses();
         model.addAttribute("student", student);
         model.addAttribute("studentDAO", studentDAO);
-        return "student";
+        model.addAttribute("courses", courses);
+        return "viewStudent";
     }
 
     @RequestMapping(value = "/addStudent", method = RequestMethod.GET)
@@ -38,6 +47,7 @@ public class StudentController {
 
     @RequestMapping(value = "/addStudent", method = RequestMethod.POST)
     public String addStudentPost(@ModelAttribute(name = "student") Student student, Model model) {
+//        student.setCourses(new HashSet<>(0));
         studentDAO.add(student);
         return "index";
     }

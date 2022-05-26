@@ -18,21 +18,24 @@
 <div th:replace="general :: page-header"></div>
 
 <div class="indent">
-    <h3 class="text-center">Система составления расписаний</h3>
+<!--    <h3 class="text-center">Система составления расписаний</h3>-->
     <br>
-    <span class="text-center indent"> Добро пожаловать:) </span>
-    <br>
-
     <div class="indent">
         <div>
             <form method="get" action="/addStudent">
-                <button type="submit" id="addStudentButton" class="btn btn-success">Добавить ученика</button>
+                <button type="submit" id="addStudentButton" class="btn btn-success">Добавить студента</button>
             </form>
         </div>
         <br>
         <div>
             <form method="get" action="/addTeacher">
                 <button type="submit" id="addTeacherButton" class="btn btn-success">Добавить учителя</button>
+            </form>
+        </div>
+        <br>
+        <div>
+            <form method="get" action="/addCompany">
+                <button type="submit" id="addCompanyButton" class="btn btn-success">Добавить компанию</button>
             </form>
         </div>
     </div>

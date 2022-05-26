@@ -5,7 +5,7 @@ import org.hibernate.annotations.Type;
 import java.util.*;
 import javax.persistence.*;
 
-@Entity()
+@Entity
 @Getter
 @Setter
 @Table(name = "student")
